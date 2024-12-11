@@ -1,0 +1,37 @@
+# Python bytecode and cache directories
+__pycache__/
+*.py[cod]
+
+# Distribution/packaging
+build/
+dist/
+*.egg-info/
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+env/
+
+# macOS files
+.DS_Store
+
+# Test coverage, test output, and other build artifacts
+.coverage
+*.cover
+coverage.xml
+htmlcov/
+.tox/
+.nox/
+.cache/
+pytest_cache/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints
+
+# Editor backups and project settings
+*.swp
+*.swo
+.idea/
+.vscode/
+
