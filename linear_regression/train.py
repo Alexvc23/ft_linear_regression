@@ -3,6 +3,16 @@ import numpy as np
 import matplotlib.pyplot as plt
 from linear_regression.tools import read_csv
 
+def calculate_precision(x, y, theta0, theta1):
+    # Calculate the precision of the model using normalized data
+    m = len(x)
+    total_error = 0
+    for i in range(m):
+        predicted = theta0 + theta1 * x[i]
+        total_error += abs(predicted - y[i])
+    mean_error = total_error / m
+    return mean_error
+
 def compute_cost(theta0, theta1, x, y, m):
     # Compute the cost function, which measures the accuracy of the linear regression model
     cost = 0
@@ -15,6 +25,10 @@ def normalize_data(data):
     # Normalize data to have mean 0 and standard deviation 1
     return (data - np.mean(data)) / np.std(data)
 
+def evaluate_precision_normalized(y, predicted_y):
+    # Evaluate the precision using normalized data
+    mean_absolute_error = np.mean(np.abs(predicted_y - y))
+    return mean_absolute_error
 
 def plot_data_only(x, y):
     # Plot only the original (non-normalized) data points
@@ -60,7 +74,19 @@ def train_model(x, y, learning_rate=0.001, max_iterations=1000, tolerance=1e-6):
         # Compute the cost to check for convergence
         cost = compute_cost(theta0, theta1, x, y, m)
 
-        if abs(previous_cost - cost) < tolerance:  # Check if the improvement is below the threshold
+        if it % 1000 == 0 or it == max_iterations - 1:  # Plot every 1000 iterations and the last iteration
+            plt.scatter(x, y, color='blue', label='Data Points')
+            regression_line = theta0 + theta1 * x  # Regression line based on theta values
+            plt.plot(x, regression_line, color='red', label='Regression Line')
+            plt.title(f'Iteration {it} and cost {cost}')
+            plt.xlabel('Normalized X (Input Feature)')
+            plt.ylabel('Normalized Y (Target)')
+            plt.legend()
+            plt.grid(True)
+            plt.show()
+            current_tolerance = abs(previous_cost - cost)
+            print(f"Iteration {it}: Cost = {cost:.6f}, Tolerance = {current_tolerance:.6f}")
+        if abs(current_tolerance) < tolerance:  # Check if the improvement is below the threshold
             print(f"Convergence reached at iteration {it}. Final Cost = {cost:.6f}")
             break
 
@@ -88,9 +114,9 @@ def main():
         print(f"Error: {e}")
         return
 
-    learning_rate = 0.01  # Learning rate for gradient descent
-    max_iterations = 1000  # Maximum number of iterations for training
-    tolerance = 1e-6  # Convergence threshold
+    learning_rate = 0.001  # Learning rate for gradient descent
+    max_iterations = 100000  # Maximum number of iterations for training
+    tolerance = 1e-6  # Convergence threshold: the minimum change in cost function to continue iterations
 
     print("Training the model...")
     theta0, theta1 = train_model(x, y, learning_rate, max_iterations, tolerance)  # Train the model
@@ -106,6 +132,11 @@ def main():
     with open("theta_values.json", "w") as file:
         json.dump({"theta0": theta0, "theta1": theta1, "mean": np.mean(original_x), "std": np.std(original_x), "mean_price": mean_price, "std_price": std_price}, file)
     print("Theta values and scaling parameters saved for prediction program.")
+
+    # Calculate and print the precision of the model
+    predicted_y_normalized = theta0 + theta1 * x
+    mean_absolute_error_normalized = evaluate_precision_normalized(y, predicted_y_normalized)
+    print(f"Mean Absolute Error (Normalized Data): {mean_absolute_error_normalized:.6f}")
 
 if __name__ == "__main__":
     main()
