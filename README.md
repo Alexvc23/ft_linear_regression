@@ -128,9 +128,9 @@ theta1 -= (learning_rate / m) * tmp_theta1
 
 **Mathematical Concept**:
 - The cost (Mean Squared Error):
-  \[
+$$
   J(\theta_0, \theta_1) = \frac{1}{2m}\sum_{i=1}^{m}(\hat{y}_i - y_i)^2
-  \]
+$$
 
 **Code**:
 ```python
