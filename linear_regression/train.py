@@ -39,7 +39,6 @@ def plot_data_and_model(x, y, theta0, theta1):
     plt.show()
 
 def train_model(x, y, learning_rate=0.001, max_iterations=1000, tolerance=1e-6):
-    # Train the linear regression model using gradient descent
     theta0 = 0  # Initialize theta0 (intercept)
     theta1 = 0  # Initialize theta1 (slope)
     m = len(x)  # Number of data points
