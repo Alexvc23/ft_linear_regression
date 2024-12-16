@@ -70,7 +70,7 @@ $$
 ### Calculating Predictions and Errors
 
 **Purpose**:
-- To determine how far off the model's predictions are from the actual values, which is essential for updating the model parameters.
+- Focuses on calculating the gradient (the slope of the cost function) to update $\theta_0$ and $\theta_1$ during each iteration of gradient descent.
 
 **Mathematical Concept**:
 - Prediction for each data point $(x_i, y_i)$:
@@ -96,9 +96,7 @@ for i in range(m):
 - **In code:** `error = predicted - y[i]` matches $e_i = \hat{y}_i - y_i$.
 - **In code:** Accumulating `tmp_theta0 += error` and `tmp_theta1 += error * x[i]` corresponds to summing up all $e_i$ and $e_i x_i$ across data points:
 $$
-
-  \theta_0 = \sum_{i=1}^{m} (\hat{y}_i - y_i) \quad\text{and}\quad \theta_1 = \quad \sum_{i=1}^{m} (\hat{y}_i - y_i)x_i
-
+\frac{\partial J}{\partial \theta_0} = \frac{1}{m} \sum_{i=1}^{m} (\hat{y}_i - y_i) \quad\text{and}\quad \frac{\partial J}{\partial \theta_1} = \frac{1}{m} \sum_{i=1}^{m} (\hat{y}_i - y_i)x_i
 $$
 ---
 
@@ -125,6 +123,9 @@ theta1 -= (learning_rate / m) * tmp_theta1
 
 ### Cost Calculation
 
+**Purpose**:
+- `compute_cost`: Evaluates how well the current model (with specific theta0 and theta1) fits the data, providing a numerical measure of error (cost).
+
 **Mathematical Concept**:
 - The cost (Mean Squared Error):
 $$
@@ -132,13 +133,7 @@ $$
 $$
 
 **Code**:
-```python
-cost = compute_cost(theta0, theta1, x, y, m)
-```
-
-**Parallel Explanation**:
 - **In code:** `compute_cost` calculates $\frac{1}{2m}\sum ( \hat{y}_i - y_i )^2$.
-- **In math:** $J(\theta_0, \theta_1)$ is the measure we aim to minimize with gradient descent.
 
 ---
 
@@ -181,12 +176,9 @@ return theta0, theta1
 
 ---
 
-### Summary
+## Summary
 
-
-In essence, each code block corresponds to a mathematical step: from initializing parameters, computing predictions and errors, summing gradients, updating parameters according to the gradient descent formula, checking for convergence, and finally returning the optimal parameters.
-
-## Understanding Linear Regression with Gradient Descent: A Step-by-Step Guide
+### Understanding Linear Regression with Gradient Descent: A Step-by-Step Guide
 
 ### Step 1: Start with a Guess (Initialization)
 
@@ -278,10 +270,3 @@ Imagine you're hiking down a mountain to find the lowest point (best fit for the
 3. You take small steps (controlled by the learning rate).
 4. You stop when the ground becomes almost flat (cost doesn’t change much).
 5. Congratulations! You’re at the best fit line.
-
-This step-by-step process is exactly what gradient descent does in code!
-
-    # Calculate and print the precision of the model
-    predicted_y_normalized = theta0 + theta1 * x
-    mean_absolute_error_normalized = evaluate_precision_normalized(y, predicted_y_normalized)
-    print(f"Mean Absolute Error (Normalized Data): {mean_absolute_error_normalized:.6f}")
