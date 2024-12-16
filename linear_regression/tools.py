@@ -1,4 +1,6 @@
 import pandas as pd
+import matplotlib.pyplot as plt
+
 
 def normalize_input(value, mean, std):
     """
@@ -19,6 +21,28 @@ def denormalize_output(value, mean, std):
     :return: Denormalized value
     """
     return (value * std) + mean
+
+def plot_data_only(x, y):
+    # Plot only the original (non-normalized) data points
+    plt.scatter(x, y, color='blue', label='Original Data Points')
+    plt.title('Original Data Points')
+    plt.xlabel('X (Input Feature)')
+    plt.ylabel('Y (Target)')
+    plt.legend()
+    plt.grid(True)
+    plt.show()
+
+def plot_data_and_model(x, y, theta0, theta1):
+    # Plot the normalized data points along with the regression line
+    plt.scatter(x, y, color='blue', label='Data Points')
+    regression_line = theta0 + theta1 * x  # Regression line based on theta values
+    plt.plot(x, regression_line, color='red', label='Regression Line')
+    plt.title('Data with Linear Regression')
+    plt.xlabel('Normalized X (Input Feature)')
+    plt.ylabel('Normalized Y (Target)')
+    plt.legend()
+    plt.grid(True)
+    plt.show()
 
 def read_csv(file_path):
     """
