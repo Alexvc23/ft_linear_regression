@@ -33,7 +33,11 @@ $$
 - $\large \theta_0$ (intercept): Where the line crosses the y-axis (Where the line starts).  
 - $\large \theta_1$ (slope): How steep the line is.  
 - $\large x$: Input value (Milage) 
-- $\large \hat{y}_i$: Predicted output(Price). 
+- $\large \hat{y}$: Predicted output(Price). 
+
+### Graphical Explanation
+
+For a more visual understanding, you can refer to this [Graphical explanation](https://www.notion.so/jvalenci/Resolve-question-I-don-t-understand-why-in-this-exercise-we-use-two-thetas-instead-of-jus-1-1599d52658e08088b639c429ed2d8311).
 
 ### Gradient Descent Algorithm
 
@@ -139,11 +143,21 @@ $$
 
 ### Convergence Check
 
-**Mathematical Concept**:
 - Convergence means the parameters no longer significantly reduce the cost:
+- **Goal**: The goal of checking for convergence is to stop the gradient descent when further iterations do not significantly improve accuracy, saving computational resources and time.
+
+**Mathematical Concept**:
+
+
 $$
-  |J_{\text{previous}} - J_{\text{current}}| < \text{tolerance}
+|J_{\text{previous}} - J_{\text{current}}| < \text{tolerance}
 $$
+
+**Parameters of the Convergence Formula**:
+
+- **J_previous**: The cost from the previous iteration.
+- **J_current**: The cost from the current iteration.
+- **tolerance**: A small threshold value to determine if the change in cost is negligible.
 
 **Code**:
 ```python
