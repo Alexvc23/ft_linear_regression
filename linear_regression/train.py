@@ -47,6 +47,7 @@ def train_model(x, y, learning_rate=0.001, max_iterations=1000, tolerance=1e-6):
     theta1 = 0  # Initialize theta1 (slope)
     m = len(x)  # Number of data points
     previous_cost = float('inf')  # Initialize previous cost to a large value
+    current_tolerance = float('inf')  # Initialize tolerance value
 
     for it in range(max_iterations):
         tmp_theta0 = 0
