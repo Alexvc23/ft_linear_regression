@@ -16,11 +16,6 @@ def normalize_data(data):
     # Normalize data to have mean 0 and standard deviation 1
     return (data - np.mean(data)) / np.std(data)
 
-def evaluate_precision_normalized(y, predicted_y):
-    # Evaluate the precision using normalized data
-    mean_absolute_error = np.mean(np.abs(predicted_y - y))
-    return mean_absolute_error
-
 def plot_regression(x, y, theta0, theta1, title, iteration=None, cost=None):
     # Unified function to plot data and regression line
     plt.scatter(x, y, color='blue', label='Data Points')

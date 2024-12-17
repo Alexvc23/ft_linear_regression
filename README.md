@@ -39,6 +39,8 @@ tests/
 ├── test_train.py     # Unit tests for training
 ├── test_utils.py     # Unit tests for utilities
 ```
+
+
 ## Basic concepts 
 
 ### linear funtion
@@ -63,6 +65,63 @@ $$
 
 For a more visual understanding, you can refer to this [Graphical explanation](https://www.notion.so/jvalenci/Resolve-question-I-don-t-understand-why-in-this-exercise-we-use-two-thetas-instead-of-jus-1-1599d52658e08088b639c429ed2d8311).
 
+---
+
+### Data Normalization
+
+**Normalization** in data science is the process of scaling your data to a standard range (like 0 to 1). This helps linear regression models perform better by ensuring that all features contribute equally to the result.
+
+**Denormalization** is the reverse process, where you convert the scaled data back to its original scale. This makes it easier to interpret the model's predictions in the context of the original data.
+
+_Example:_
+
+- **Normalization:** Changing ages from a range of 0–100 to 0–1.  
+- **Denormalization:** Converting predicted normalized ages back to the 0–100 range.
+
+
+**Normalization Formula**:
+$$
+x_{\text{norm}} = \frac{x - \mu_x}{\sigma_x}, \quad y_{\text{norm}} = \frac{y - \mu_y}{\sigma_y}
+$$
+
+- $\mu_x$ and $\mu_y$: Means of $x$ and $y$
+- $\sigma_x$ and $\sigma_y$: Standard deviations of $x$ and $y$
+
+**Regression Line on Normalized Data**:
+$$
+y_{\text{norm}} = \theta_0 + \theta_1 \cdot x_{\text{norm}}
+$$
+
+**Reverting to Original Scale**:
+
+- **Slope (output - steepness)**:
+$$
+\text{slope} = \theta_1 \cdot \frac{\sigma_y}{\sigma_x}
+$$
+
+- **Intercept (input - line start)**:
+$$
+\text{intercept} = \mu_y - \text{slope} \cdot \mu_x
+$$
+
+**Final Regression Line**:
+$$
+\hat{y} = \text{intercept} + \text{slope} \cdot x
+$$
+
+**Complete Formula**:
+$$
+\hat{y} = (\theta_0 \cdot \sigma_y + \mu_y) + (\theta_1 \cdot \frac{\sigma_y}{\sigma_x}) \cdot (x - \mu_x)
+$$
+
+### Further Reading
+
+For more information about these formulas, see:
+
+- [How to Denormalize Data (Math)](https://jvalenci.notion.site/how-to-denormalize-data-math-15f9d52658e080f9affde29f5c523f02)
+- [Normalization and Denormalization: How To](https://www.notion.so/jvalenci/Normalization-and-Denormalization-how-to-1599d52658e0807db023f755f38d091c)
+
+---
 ### Gradient Descent Algorithm
 
 **What is Gradient Descent?**  
