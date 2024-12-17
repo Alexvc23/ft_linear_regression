@@ -1,7 +1,7 @@
 import json
 import numpy as np
 import matplotlib.pyplot as plt
-from linear_regression.tools import read_csv, plot_data_and_model, plot_data_only
+from linear_regression.tools import read_csv
 
 
 def compute_cost(theta0, theta1, x, y, m):
@@ -16,6 +16,32 @@ def normalize_data(data):
     # Normalize data to have mean 0 and standard deviation 1
     return (data - np.mean(data)) / np.std(data)
 
+def evaluate_precision_normalized(y, predicted_y):
+    # Evaluate the precision using normalized data
+    mean_absolute_error = np.mean(np.abs(predicted_y - y))
+    return mean_absolute_error
+
+def plot_data_only(x, y):
+    # Plot only the original (non-normalized) data points
+    plt.scatter(x, y, color='blue', label='Original Data Points')
+    plt.title('Original Data Points')
+    plt.xlabel('X (Input Feature)')
+    plt.ylabel('Y (Target)')
+    plt.legend()
+    plt.grid(True)
+    plt.show()
+
+def plot_data_and_model(x, y, theta0, theta1):
+    # Plot the normalized data points along with the regression line
+    plt.scatter(x, y, color='blue', label='Data Points')
+    regression_line = theta0 + theta1 * x  # Regression line based on theta values
+    plt.plot(x, regression_line, color='red', label='Regression Line')
+    plt.title('Data with Linear Regression')
+    plt.xlabel('Normalized X (Input Feature)')
+    plt.ylabel('Normalized Y (Target)')
+    plt.legend()
+    plt.grid(True)
+    plt.show()
 
 def train_model(x, y, learning_rate=0.001, max_iterations=1000, tolerance=1e-6):
     theta0 = 0  # Initialize theta0 (intercept)
@@ -39,8 +65,16 @@ def train_model(x, y, learning_rate=0.001, max_iterations=1000, tolerance=1e-6):
         # Compute the cost to check for convergence
         cost = compute_cost(theta0, theta1, x, y, m)
 
-        if it % 100 == 0 or it == max_iterations - 1:  # Log every 100 iterations and the last iteration
-            plot_iteration(x, y, theta0, theta1, it, cost)
+        if it % 100 == 0 or it == max_iterations - 1:  # Plot every 1000 iterations and the last iteration
+            plt.scatter(x, y, color='blue', label='Data Points')
+            regression_line = theta0 + theta1 * x  # Regression line based on theta values
+            plt.plot(x, regression_line, color='red', label='Regression Line')
+            plt.title(f'Iteration {it} and cost {cost}')
+            plt.xlabel('Normalized X (Input Feature)')
+            plt.ylabel('Normalized Y (Target)')
+            plt.legend()
+            plt.grid(True)
+            plt.show()
             current_tolerance = abs(previous_cost - cost)
             print(f"Iteration {it}: Cost = {cost:.6f}, Tolerance = {current_tolerance:.6f}")
         if abs(current_tolerance) < tolerance:  # Check if the improvement is below the threshold
@@ -89,6 +123,7 @@ def main():
     with open("theta_values.json", "w") as file:
         json.dump({"theta0": theta0, "theta1": theta1, "mean": np.mean(original_x), "std": np.std(original_x), "mean_price": mean_price, "std_price": std_price}, file)
     print("Theta values and scaling parameters saved for prediction program.")
+
 
 if __name__ == "__main__":
     main()

@@ -1,5 +1,28 @@
 # ft_linear_regression
 
+### Index
+- [Project Structure](#project-structure)
+- [Basic Concepts](#basic-concepts)
+  - [Linear Function](#linear-function)
+  - [Linear Function Formula](#linear-function-formula)
+  - [Graphical Explanation](#graphical-explanation)
+  - [Gradient Descent Algorithm](#gradient-descent-algorithm)
+    - [Formula](#formula)
+    - [Steps](#steps)
+- [Calculating Predictions and Errors](#calculating-predictions-and-errors)
+- [Parameter Update Step](#parameter-update-step)
+- [Cost Calculation](#cost-calculation)
+- [Convergence Check](#convergence-check)
+- [Return Results](#return-results)
+- [Summary](#summary)
+  - [Step 1: Start with a Guess (Initialization)](#step-1-start-with-a-guess-initialization)
+  - [Step 2: Try to Improve the Line (Gradient Descent)](#step-2-try-to-improve-the-line-gradient-descent)
+  - [Step 3: Measure How "Wrong" the Line Is (Predictions and Errors)](#step-3-measure-how-wrong-the-line-is-predictions-and-errors)
+  - [Step 4: Adjust the Line (Parameter Updates)](#step-4-adjust-the-line-parameter-updates)
+  - [Step 5: Check If We’re Done (Convergence)](#step-5-check-if-were-done-convergence)
+  - [Final Result](#final-result)
+  - [Simplified Analogy](#simplified-analogy)
+
 ### Project Structure
 
 ```
