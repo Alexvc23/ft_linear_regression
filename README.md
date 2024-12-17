@@ -25,6 +25,7 @@ A **linear function** is a simple type of function where the relationship betwee
 ### Linear Function Formula
 
 It follows this formula:
+
 $$
 \large \hat{y} = \theta_0 + \theta_1 x
 $$
@@ -52,6 +53,7 @@ Its goal is to find the lowest point (the minimum) of a “cost function.” Thi
 $$
 \theta_0 := \theta_0 - \alpha \frac{1}{m}\sum_{i=1}^{m} (\hat{y}_i - y_i)
 $$
+
 $$
 \theta_1 := \theta_1 - \alpha \frac{1}{m}\sum_{i=1}^{m} (\hat{y}_i - y_i) x_i
 $$
@@ -99,9 +101,11 @@ for i in range(m):
 - **In code:** `predicted = theta0 + theta1 * x[i]` mirrors $\hat{y}_i = \theta_0 + \theta_1 x_i$.
 - **In code:** `error = predicted - y[i]` matches $e_i = \hat{y}_i - y_i$.
 - **In code:** Accumulating `tmp_theta0 += error` and `tmp_theta1 += error * x[i]` corresponds to summing up all $e_i$ and $e_i x_i$ across data points:
+
 $$
-\frac{\partial J}{\partial \theta_0} = \frac{1}{m} \sum_{i=1}^{m} (\hat{y}_i - y_i) \quad\text{and}\quad \frac{\partial J}{\partial \theta_1} = \frac{1}{m} \sum_{i=1}^{m} (\hat{y}_i - y_i)x_i
+  \frac{\partial J}{\partial \theta_0} = \frac{1}{m} \sum_{i=1}^{m} (\hat{y}_i - y_i) \quad\text{and}\quad \frac{\partial J}{\partial \theta_1} = \frac{1}{m} \sum_{i=1}^{m} (\hat{y}_i - y_i)x_i
 $$
+
 ---
 
 ### Parameter Update Step
@@ -110,9 +114,11 @@ $$
 
 **Mathematical Concept**:
 - Updating $\theta_0$ and $\theta_1$ using gradient descent:
+  
 $$
   \theta_0 := \theta_0 - \alpha \frac{1}{m}\sum_{i=1}^{m} (\hat{y}_i - y_i)
 $$
+
 $$
   \theta_1 := \theta_1 - \alpha \frac{1}{m}\sum_{i=1}^{m} (\hat{y}_i - y_i) x_i
 $$
