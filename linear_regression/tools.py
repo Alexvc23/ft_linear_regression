@@ -1,26 +1,11 @@
 import pandas as pd
 import matplotlib.pyplot as plt
+import numpy as np
 
 
-def normalize_input(value, mean, std):
-    """
-    Normalize input value using mean and standard deviation.
-    :param value: Input value to normalize
-    :param mean: Mean of the training data
-    :param std: Standard deviation of the training data
-    :return: Normalized value
-    """
-    return (value - mean) / std
-
-def denormalize_output(value, mean, std):
-    """
-    Denormalize output value to return to the original scale.
-    :param value: Normalized value to denormalize
-    :param mean: Mean of the target data
-    :param std: Standard deviation of the target data
-    :return: Denormalized value
-    """
-    return (value * std) + mean
+def normalize_data(data):
+    # Normalize data to have mean 0 and standard deviation 1
+    return (data - np.mean(data)) / np.std(data)
 
 def plot_data_only(x, y):
     # Plot only the original (non-normalized) data points
@@ -40,6 +25,39 @@ def plot_data_and_model(x, y, theta0, theta1):
     plt.title('Data with Linear Regression')
     plt.xlabel('Normalized X (Input Feature)')
     plt.ylabel('Normalized Y (Target)')
+    plt.legend()
+    plt.grid(True)
+    plt.show()
+
+def plot_normalized_regression(x, y, theta0, theta1, title, iteration=None, cost=None):
+    # Unified function to plot data and regression line
+    plt.scatter(x, y, color='blue', label='Data Points')
+    regression_line = theta0 + theta1 * x  # Regression line based on theta values
+    plt.plot(x, regression_line, color='red', label='Regression Line')
+    plt.title(title if iteration is None else f'{title} (Iteration {iteration}, Cost = {cost:.6f})')
+    plt.xlabel('Normalized X (Input Feature)')
+    plt.ylabel('Normalized Y (Target)')
+    plt.legend()
+    plt.grid(True)
+    plt.show()
+
+def plot_cost_function(cost_history):
+    # Plot cost function decrease over iterations
+    plt.plot(range(len(cost_history)), cost_history, color='green')
+    plt.title('Cost Function Decrease Over Iterations')
+    plt.xlabel('Iterations')
+    plt.ylabel('Cost (MSE)')
+    plt.grid(True)
+    plt.show()
+
+def plot_data_with_regression(x, y, theta0, theta1, x_mean, x_std, y_mean, y_std):
+    # Plot original (non-normalized) data points with properly scaled regression line
+    plt.scatter(x, y, color='blue', label='Original Data Points')
+    regression_line = (theta0 * y_std + y_mean) + (theta1 * y_std / x_std) * (x - x_mean)  # Scale back theta values to original data
+    plt.plot(x, regression_line, color='red', label='Regression Line')
+    plt.title('Original Data with Linear Regression Line')
+    plt.xlabel('X (Input Feature)')
+    plt.ylabel('Y (Target)')
     plt.legend()
     plt.grid(True)
     plt.show()

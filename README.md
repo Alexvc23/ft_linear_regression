@@ -25,7 +25,6 @@ So we are going to use the Gradient Descent algorith along with the linear regre
 
 ## Simplified Analogy to undestand the training model
 
-
 Imagine you're hiking down a mountain to find the lowest point (best fit for the data):
 
 

@@ -1,8 +1,7 @@
 import json
-import numpy as np
-import matplotlib.pyplot as plt
 import argparse
-from linear_regression.tools import read_csv
+import numpy as np
+from linear_regression.tools import read_csv, plot_normalized_regression, plot_cost_function, plot_data_with_regression, normalize_data
 
 def compute_cost(theta0, theta1, x, y, m):
     # Compute the cost function, which measures the accuracy of the linear regression model
@@ -12,33 +11,6 @@ def compute_cost(theta0, theta1, x, y, m):
         cost += (predicted - y[i]) ** 2  # Squared error for the i-th data point
     return cost / (2 * m)  # Average squared error divided by 2
 
-def normalize_data(data):
-    # Normalize data to have mean 0 and standard deviation 1
-    return (data - np.mean(data)) / np.std(data)
-
-def plot_regression(x, y, theta0, theta1, title, iteration=None, cost=None):
-    # Unified function to plot data and regression line
-    plt.scatter(x, y, color='blue', label='Data Points')
-    regression_line = theta0 + theta1 * x  # Regression line based on theta values
-    plt.plot(x, regression_line, color='red', label='Regression Line')
-    plt.title(title if iteration is None else f'{title} (Iteration {iteration}, Cost = {cost:.6f})')
-    plt.xlabel('Normalized X (Input Feature)')
-    plt.ylabel('Normalized Y (Target)')
-    plt.legend()
-    plt.grid(True)
-    plt.show()
-
-def plot_data_with_regression(x, y, theta0, theta1, x_mean, x_std, y_mean, y_std):
-    # Plot original (non-normalized) data points with properly scaled regression line
-    plt.scatter(x, y, color='blue', label='Original Data Points')
-    regression_line = (theta0 * y_std + y_mean) + (theta1 * y_std / x_std) * (x - x_mean)  # Scale back theta values to original data
-    plt.plot(x, regression_line, color='red', label='Regression Line')
-    plt.title('Original Data with Linear Regression Line')
-    plt.xlabel('X (Input Feature)')
-    plt.ylabel('Y (Target)')
-    plt.legend()
-    plt.grid(True)
-    plt.show()
 
 def train_model(x, y, learning_rate=0.001, max_iterations=1000, tolerance=1e-6, plot_debug=False):
     theta0 = 0  # Initialize theta0 (intercept)
@@ -46,6 +18,7 @@ def train_model(x, y, learning_rate=0.001, max_iterations=1000, tolerance=1e-6, 
     m = len(x)  # Number of data points
     previous_cost = float('inf')  # Initialize previous cost to a large value
     current_tolerance = float('inf')  # Initialize tolerance value to 0
+    cost_history = []  # Track cost function over iterations
 
     for it in range(max_iterations):
         tmp_theta0 = 0
@@ -62,9 +35,10 @@ def train_model(x, y, learning_rate=0.001, max_iterations=1000, tolerance=1e-6, 
 
         # Compute the cost to check for convergence
         cost = compute_cost(theta0, theta1, x, y, m)
+        cost_history.append(cost)
 
         if plot_debug and (it % 100 == 0 or it == max_iterations - 1):  # Conditional plotting for debugging
-            plot_regression(x, y, theta0, theta1, "Training Progress", it, cost)
+            plot_normalized_regression(x, y, theta0, theta1, "Training Progress", it, cost)
         
         current_tolerance = abs(previous_cost - cost)
         print(f"Iteration {it}: Cost = {cost:.6f}, Tolerance = {current_tolerance:.6f}")
@@ -74,6 +48,7 @@ def train_model(x, y, learning_rate=0.001, max_iterations=1000, tolerance=1e-6, 
 
         previous_cost = cost  # Update the previous cost
 
+    plot_cost_function(cost_history)  # Plot the cost function over iterations
     return theta0, theta1
 
 def main():
@@ -102,9 +77,9 @@ def main():
         print(f"Error: {e}")
         return
 
-    learning_rate = 0.01# Learning rate for gradient descent
+    learning_rate = 0.01  # Learning rate for gradient descent
     max_iterations = 100000  # Maximum number of iterations for training
-    tolerance = 1e-6  # (1 * -1000000 Convergence threshold: the minimum change in cost function to continue iterations
+    tolerance = 1e-6  # Convergence threshold: the minimum change in cost function to continue iterations
 
     print("Training the model...")
     theta0, theta1 = train_model(x, y, learning_rate, max_iterations, tolerance, plot_debug=args.plot_debug)  # Train the model
