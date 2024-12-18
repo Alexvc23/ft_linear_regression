@@ -76,31 +76,6 @@ def plot_data_only(x, y):
     plt.show()
 
 # --------------------------------------------------
-def plot_data_and_model(x, y, theta0, theta1):
-    """
-    Plots the normalized data points along with the linear regression model.
-
-    Args:
-        x (array-like): The input feature values (normalized).
-        y (array-like): The target values (normalized).
-        theta0 (float): The intercept term of the linear regression model.
-        theta1 (float): The slope term of the linear regression model.
-
-    Returns:
-        None
-    """
-    # Plot the normalized data points along with the regression line
-    plt.scatter(x, y, color='blue', label='Data Points')
-    regression_line = theta0 + theta1 * x  # Regression line based on theta values
-    plt.plot(x, regression_line, color='red', label='Regression Line')
-    plt.title('Data with Linear Regression')
-    plt.xlabel('Normalized X (Input Feature)')
-    plt.ylabel('Normalized Y (Target)')
-    plt.legend()
-    plt.grid(True)
-    plt.show()
-
-# --------------------------------------------------
 def plot_normalized_regression(x, y, theta0, theta1, title, iteration=None, cost=None):
     """
     Plots the normalized regression line along with the data points.
