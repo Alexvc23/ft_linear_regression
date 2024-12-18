@@ -265,16 +265,45 @@ return theta0, theta1  # Best-fit line parameters
 ### Project Structure
 
 ```
-README.md
-linear_regression/
-├── __init__.py
-├── train.py          # Main training script
-├── predict.py        # Prediction script
-├── utils.py          # Utility functions, including `read_csv`
-poetry.lock
-pyproject.toml
-tests/
-├── __init__.py
-├── test_train.py     # Unit tests for training
-├── test_utils.py     # Unit tests for utilities
+├── README.md
+├── assets
+│   └── data.csv
+├── linear_regression
+│   ├── __init__.py
+│   ├── predict.py
+│   ├── tools.py
+│   └── train.py
+├── poetry.lock
+├── pyproject.toml
+├── tests
+│   ├── __init__.py
+│   └── test_tools.py
+└── theta_values.json
+
 ```
+
+---
+
+## **Setup Instructions**
+
+### Prerequisites
+- Python 3.8 or higher
+- [Poetry](https://python-poetry.org/) for dependency management
+
+---
+
+### **Step 1: Clone the repository**
+
+```bash
+git clone <repository_url>
+cd <repository_name>
+```
+
+### **Step 2: Configure the environment**
+
+Run the provided shell script to install dependencies and set up the project:
+
+```bash
+bash setup_project.sh
+```
+
