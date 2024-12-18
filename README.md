@@ -208,7 +208,6 @@ $$
 - **In code:** `compute_cost` calculates $\frac{1}{2m}\sum ( \hat{y}_i - y_i )^2$.
 
 ---
-
 ### Convergence Check
 
 - Convergence means the parameters no longer significantly reduce the cost:
@@ -216,9 +215,8 @@ $$
 
 **Mathematical Concept**:
 
-
 $$
-|J_{\text{previous}} - J_{\text{current}}| < \text{tolerance}
+\frac{|J_{\text{previous}} - J_{\text{current}}|}{J_{\text{previous}}} < \text{tolerance}
 $$
 
 **Parameters of the Convergence Formula**:
@@ -229,16 +227,18 @@ $$
 
 **Code**:
 ```python
-if abs(previous_cost - cost) < tolerance:
-    print(f"Convergence reached at iteration {it}. Final Cost = {cost:.6f}")
-    break
+current_tolerance = abs((previous_cost - cost) / previous_cost)  # Relative tolerance
+print(f"Iteration {it}: Cost = {cost:.6f}, Relative Tolerance = {current_tolerance:.6f}")
+if current_tolerance < tolerance:  # Check if the relative improvement is below the threshold
+  print(f"Convergence reached at iteration {it}. Final Cost = {cost:.6f}")
+  break
 
 previous_cost = cost
 ```
 
 **Parallel Explanation**:
-- **In code:** If the improvement in cost is less than `tolerance`, we stop.
-- **In math:** When changes in $J(\theta_0, \theta_1)$ become negligible, it indicates the solution has (approximately) converged.
+- **In code:** If the relative improvement in cost is less than `tolerance`, we stop.
+- **In math:** When changes in $J(\theta_0, \theta_1)$ become negligible relative to their current value, it indicates the solution has (approximately) converged.
 
 ---
 

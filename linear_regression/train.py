@@ -3,6 +3,8 @@ import argparse
 import numpy as np
 from linear_regression.tools import read_csv, plot_normalized_regression, plot_cost_function, plot_data_with_regression, normalize_data
 
+cost_history = []  # Track cost function over iterations
+
 def compute_cost(theta0, theta1, x, y, m):
     # Compute the cost function, which measures the accuracy of the linear regression model
     cost = 0
@@ -11,14 +13,12 @@ def compute_cost(theta0, theta1, x, y, m):
         cost += (predicted - y[i]) ** 2  # Squared error for the i-th data point
     return cost / (2 * m)  # Average squared error divided by 2
 
-
 def train_model(x, y, learning_rate=0.001, max_iterations=1000, tolerance=1e-6, plot_debug=False):
     theta0 = 0  # Initialize theta0 (intercept)
     theta1 = 0  # Initialize theta1 (slope)
     m = len(x)  # Number of data points
     previous_cost = float('inf')  # Initialize previous cost to a large value
     current_tolerance = float('inf')  # Initialize tolerance value to 0
-    cost_history = []  # Track cost function over iterations
 
     for it in range(max_iterations):
         tmp_theta0 = 0
@@ -40,15 +40,14 @@ def train_model(x, y, learning_rate=0.001, max_iterations=1000, tolerance=1e-6, 
         if plot_debug and (it % 100 == 0 or it == max_iterations - 1):  # Conditional plotting for debugging
             plot_normalized_regression(x, y, theta0, theta1, "Training Progress", it, cost)
         
-        current_tolerance = abs(previous_cost - cost)
-        print(f"Iteration {it}: Cost = {cost:.6f}, Tolerance = {current_tolerance:.6f}")
-        if abs(current_tolerance) < tolerance:  # Check if the improvement is below the threshold
+        current_tolerance = abs((previous_cost - cost) / previous_cost)  # Relative tolerance
+        print(f"Iteration {it}: Cost = {cost:.6f}, Relative Tolerance = {current_tolerance:.6f}")
+        if current_tolerance < tolerance:  # Check if the relative improvement is below the threshold
             print(f"Convergence reached at iteration {it}. Final Cost = {cost:.6f}")
             break
 
         previous_cost = cost  # Update the previous cost
 
-    plot_cost_function(cost_history)  # Plot the cost function over iterations
     return theta0, theta1
 
 def main():
@@ -86,6 +85,7 @@ def main():
     print(f"Training complete. Theta0 = {theta0:.6f}, Theta1 = {theta1:.6f}")
 
     plot_data_with_regression(original_x, original_y, theta0, theta1, x_mean, x_std, y_mean, y_std)  # Plot non-normalized data with regression line
+    plot_cost_function(cost_history)  # Plot the cost function over iterations
 
     mean_price = np.mean(original_y)  # Mean of the original target data
     std_price = np.std(original_y)  # Standard deviation of the original target data
