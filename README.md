@@ -284,7 +284,7 @@ return theta0, theta1  # Best-fit line parameters
 
 ---
 
-## **Setup Instructions**
+## Setup Instructions
 
 ### Prerequisites
 - Python 3.8 or higher
@@ -292,18 +292,49 @@ return theta0, theta1  # Best-fit line parameters
 
 ---
 
-### **Step 1: Clone the repository**
+### Step 1: Clone the repository
 
 ```bash
 git clone <repository_url>
 cd <repository_name>
 ```
 
-### **Step 2: Configure the environment**
+### Step 2: Configure the environment
 
 Run the provided shell script to install dependencies and set up the project:
 
 ```bash
 bash setup_project.sh
 ```
+
+### Step 3: Enter Poetry Shell
+
+Activate the Poetry shell to work within the project's virtual environment. This ensures that all commands use the correct dependencies:
+
+```bash
+poetry shell
+```
+
+**Why use the Poetry shell?**
+
+- It activates a virtual environment where all project dependencies are isolated, preventing conflicts with global packages.
+- Commands like `pytest` and `python` will directly reference the environment set up by Poetry.
+
+### **Step 4: Train the Model**
+
+To train the program with the provided dataset and visualize debugging plots, use the following command:
+
+```bash
+python3 -m linear_regression.train --plot_debug ./assets/data.csv
+```
+
+### **Step 5: Verify the Setup**
+
+To ensure the setup is complete, run the test suite to verify the functionality:
+
+```bash
+poetry run pytest tests
+```
+
+
 

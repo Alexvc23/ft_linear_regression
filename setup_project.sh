@@ -7,14 +7,19 @@ echo "Setting up the project..."
 PYTHON_VERSION=$(python3 --version 2>&1)
 echo "Using $PYTHON_VERSION"
 
-# Install Poetry dependencies
+# Check if Poetry is installed, otherwise install it
 if command -v poetry >/dev/null 2>&1; then
     echo "Poetry detected, installing dependencies..."
-    poetry install
 else
-    echo "Error: Poetry is not installed. Please install Poetry first."
-    exit 1
+    echo "Poetry is not installed. Installing Poetry..."
+    curl -sSL https://install.python-poetry.org | python3 -
+    export PATH="$HOME/.local/bin:$PATH"
+    echo "Poetry installed successfully."
 fi
+
+# Install Poetry dependencies
+echo "Installing project dependencies..."
+poetry install
 
 # Confirm environment setup
 echo "Environment setup complete!"
