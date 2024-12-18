@@ -335,6 +335,3 @@ To ensure the setup is complete, run the test suite to verify the functionality:
 ```bash
 poetry run pytest tests
 ```
-
-
-

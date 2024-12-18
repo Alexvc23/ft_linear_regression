@@ -1,7 +1,9 @@
 import json
-from linear_regression.tools import denormalize_output, normalize_input
+import numpy as np
+from linear_regression.tools import normalize_prediction_input, denormalize_prediction_output 
 
 
+# --------------------------------------------------
 def predict_price(mileage, theta0, theta1):
     """
     Predict the price of a car based on mileage.
@@ -12,6 +14,7 @@ def predict_price(mileage, theta0, theta1):
     """
     return theta0 + (theta1 * mileage)
 
+# --------------------------------------------------
 def main():
     """
     Main function to load model parameters and predict car price.
@@ -40,17 +43,14 @@ def main():
         print("Invalid input. Please enter a numeric value.")
         return
 
-    # ?Normalize the input mileage
-    # As I ma currently with a normalize scale and I passing as input a normal km (not normalize data) I have to normalize it
-    normalized_mileage = normalize_input(mileage, mean_mileage, std_mileage)
+    # Normalize the input mileage
+    normalized_mileage = normalize_prediction_input(mileage, mean_mileage, std_mileage)
 
-    # ?Predict the normalized price
-    # this will provide me a price prediction in a normalize (scaled way)  
+    # Predict the normalized price
     normalized_price = predict_price(normalized_mileage, theta0, theta1)
 
-    # ?Denormalize the price
-    # in order to print the output in readable data I have to put it back to (Denormalize data)
-    price = denormalize_output(normalized_price, mean_price, std_price)
+    # Denormalize the price
+    price = denormalize_prediction_output(normalized_price, mean_price, std_price)
     print(f"Estimated price for a car with mileage {mileage:.2f} km is: {price:.2f}")
 
 if __name__ == "__main__":

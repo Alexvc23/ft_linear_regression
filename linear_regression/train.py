@@ -1,7 +1,7 @@
 import json
 import argparse
 import numpy as np
-from linear_regression.tools import read_csv, plot_normalized_regression, plot_cost_function, plot_data_with_regression, normalize_data
+from linear_regression.tools import read_csv, plot_normalized_regression, plot_cost_function, plot_original_data_with_regression, normalize_data
 
 cost_history = []  # Track cost function over iterations
 
@@ -84,7 +84,7 @@ def main():
     theta0, theta1 = train_model(x, y, learning_rate, max_iterations, tolerance, plot_debug=args.plot_debug)  # Train the model
     print(f"Training complete. Theta0 = {theta0:.6f}, Theta1 = {theta1:.6f}")
 
-    plot_data_with_regression(original_x, original_y, theta0, theta1, x_mean, x_std, y_mean, y_std)  # Plot non-normalized data with regression line
+    plot_original_data_with_regression(original_x, original_y, theta0, theta1, x_mean, x_std, y_mean, y_std)  # Plot non-normalized data with regression line
     plot_cost_function(cost_history)  # Plot the cost function over iterations
 
     mean_price = np.mean(original_y)  # Mean of the original target data

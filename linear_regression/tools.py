@@ -2,12 +2,70 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
 
-
+# --------------------------------------------------
 def normalize_data(data):
+    """
+    Normalize the input data(all values) to have a mean of 0 and a standard deviation of 1.
+
+    Parameters:
+    data (numpy.ndarray): The input data to be normalized.
+
+    Returns:
+
+    numpy.ndarray: The normalized data with mean 0 and standard deviation 1.
+    """
     # Normalize data to have mean 0 and standard deviation 1
     return (data - np.mean(data)) / np.std(data)
 
+# --------------------------------------------------
+def denormalize_data(data, original_mean, original_std):
+    """
+    Denormalize data(all values) to its original scale.
+
+    Parameters:
+    data (float or array-like): The normalized data to be denormalized.
+    original_mean (float): The mean of the original data before normalization.
+    original_std (float): The standard deviation of the original data before normalization.
+
+    Returns:
+    float or array-like: The denormalized data.
+    """
+    # Denormalize data to original scale
+    return data * original_std + original_mean
+
+# --------------------------------------------------
+def normalize_prediction_input(value, original_mean_all_values, original_std_all_values):
+    """
+    Normalize the input value based on the original mean and standard deviation of all values.
+
+    Parameters:
+    value (float): The value to be normalized.
+    original_mean_all_values (float): The mean of the original dataset.
+    original_std_all_values (float): The standard deviation of the original dataset.
+
+    Returns:
+    float: The normalized value.
+    """
+    # Normalize data to have original_mean 0 and standard deviation 1
+    return (value - original_mean_all_values) / original_std_all_values
+
+# --------------------------------------------------
+def denormalize_prediction_output(value, original_mean_all_values, original_std_all_values):
+    # Denormalize value to original scale
+    return value * original_std_all_values + original_mean_all_values
+
+# --------------------------------------------------
 def plot_data_only(x, y):
+    """
+    Plot only the original (non-normalized) data points.
+
+    Parameters:
+    x (array-like): The input feature values.
+    y (array-like): The target values corresponding to the input features.
+
+    Returns:
+    None
+    """
     # Plot only the original (non-normalized) data points
     plt.scatter(x, y, color='blue', label='Original Data Points')
     plt.title('Original Data Points')
@@ -17,7 +75,20 @@ def plot_data_only(x, y):
     plt.grid(True)
     plt.show()
 
+# --------------------------------------------------
 def plot_data_and_model(x, y, theta0, theta1):
+    """
+    Plots the normalized data points along with the linear regression model.
+
+    Args:
+        x (array-like): The input feature values (normalized).
+        y (array-like): The target values (normalized).
+        theta0 (float): The intercept term of the linear regression model.
+        theta1 (float): The slope term of the linear regression model.
+
+    Returns:
+        None
+    """
     # Plot the normalized data points along with the regression line
     plt.scatter(x, y, color='blue', label='Data Points')
     regression_line = theta0 + theta1 * x  # Regression line based on theta values
@@ -29,7 +100,23 @@ def plot_data_and_model(x, y, theta0, theta1):
     plt.grid(True)
     plt.show()
 
+# --------------------------------------------------
 def plot_normalized_regression(x, y, theta0, theta1, title, iteration=None, cost=None):
+    """
+    Plots the normalized regression line along with the data points.
+
+    Parameters:
+    x (array-like): The input feature values (normalized).
+    y (array-like): The target values (normalized).
+    theta0 (float): The intercept of the regression line.
+    theta1 (float): The slope of the regression line.
+    title (str): The title of the plot.
+    iteration (int, optional): The current iteration number (for display purposes). Defaults to None.
+    cost (float, optional): The cost value at the current iteration (for display purposes). Defaults to None.
+
+    Returns:
+    None
+    """
     # Unified function to plot data and regression line
     plt.scatter(x, y, color='blue', label='Data Points')
     regression_line = theta0 + theta1 * x  # Regression line based on theta values
@@ -41,7 +128,17 @@ def plot_normalized_regression(x, y, theta0, theta1, title, iteration=None, cost
     plt.grid(True)
     plt.show()
 
+# --------------------------------------------------
 def plot_cost_function(cost_history):
+    """
+    Plots the cost function decrease over iterations.
+
+    Parameters:
+    cost_history (list or array-like): A list or array containing the cost (MSE) values for each iteration.
+
+    Returns:
+    None
+    """
     # Plot cost function decrease over iterations
     plt.plot(range(len(cost_history)), cost_history, color='green')
     plt.title('Cost Function Decrease Over Iterations')
@@ -50,7 +147,24 @@ def plot_cost_function(cost_history):
     plt.grid(True)
     plt.show()
 
-def plot_data_with_regression(x, y, theta0, theta1, x_mean, x_std, y_mean, y_std):
+# --------------------------------------------------
+def plot_original_data_with_regression(x, y, theta0, theta1, x_mean, x_std, y_mean, y_std):
+    """
+    Plot original (non-normalized) data points with a properly scaled regression line.
+
+    Parameters:
+    x (array-like): The input feature data points.
+    y (array-like): The target data points.
+    theta0 (float): The intercept term of the regression line.
+    theta1 (float): The slope term of the regression line.
+    x_mean (float): The mean of the input feature data points.
+    x_std (float): The standard deviation of the input feature data points.
+    y_mean (float): The mean of the target data points.
+    y_std (float): The standard deviation of the target data points.
+
+    Returns:
+    None
+    """
     # Plot original (non-normalized) data points with properly scaled regression line
     plt.scatter(x, y, color='blue', label='Original Data Points')
     regression_line = (theta0 * y_std + y_mean) + (theta1 * y_std / x_std) * (x - x_mean)  # Scale back theta values to original data
@@ -62,6 +176,7 @@ def plot_data_with_regression(x, y, theta0, theta1, x_mean, x_std, y_mean, y_std
     plt.grid(True)
     plt.show()
 
+# --------------------------------------------------
 def read_csv(file_path):
     """
     Read mileage (km) and price data from a CSV file using Pandas with validation.
