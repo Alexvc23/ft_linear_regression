@@ -2,6 +2,48 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
 
+
+# --------------------------------------------------
+def find_outliers(df):
+    """
+    Identify and flag unrealistic prices in a DataFrame.
+
+    This function calculates the interquartile range (IQR) for the 'price' column
+    in the given DataFrame and flags rows where the price is considered an outlier.
+    An outlier is defined as a price that is below Q1 - 1.5 * IQR or above Q3 + 1.5 * IQR.
+
+    Parameters:
+    df (pandas.DataFrame): The DataFrame containing a 'price' column to check for outliers.
+
+    Returns:
+    bool: True if outliers are found, False otherwise.
+
+    Side Effects:
+    - Adds a new column 'unrealistic_price' to the DataFrame, where True indicates an outlier.
+    - Prints the rows with unrealistic prices if any are found.
+
+    For more information about how to determine the IQR, visit:
+    https://www.notion.so/jvalenci/Data-science-ab6b989b5f8f470fb9e68414669cd534?pvs=4#1619d52658e080d1ab9ef16af416e6f1
+    """
+    # Identify unrealistic prices
+    Q1 = df["price"].quantile(0.25)
+    Q3 = df["price"].quantile(0.75)
+    IQR = Q3 - Q1
+    upper_bound = Q3 + 1.5 * IQR
+    lower_bound = Q1 - 1.5 * IQR
+
+    # Flag unrealistic prices
+    df["unrealistic_price"] = (df["price"] < lower_bound) | (df["price"] > upper_bound)
+
+    # View flagged rows
+    unrealistic_values = df[df["unrealistic_price"]]
+    if not unrealistic_values.empty:
+        print("Unrealistic values:")
+        print(unrealistic_values)
+        return True
+    else:
+        print("No outliers found.")
+        return False
 # --------------------------------------------------
 def normalize_data(data):
     """
@@ -189,9 +231,9 @@ def read_csv(file_path):
 
     # Step 4: Check for and handle missing values in 'km' and 'price'
     if df[["km", "price"]].isnull().values.any():
-        # Drop rows with missing values and raise a warning
-        df = df.dropna(subset=["km", "price"])
-        raise ValueError("Warning: Missing values detected. These rows will be dropped.")
+        # # Drop rows with missing values and raise a warning
+        # df = df.dropna(subset=["km", "price"])
+        raise ValueError("Warning: Missing values detected.")
 
     # Step 5: Validate that 'km' and 'price' columns contain numeric values
     if not pd.api.types.is_numeric_dtype(df["km"]) or not pd.api.types.is_numeric_dtype(df["price"]):
@@ -201,11 +243,15 @@ def read_csv(file_path):
     if (df["km"] < 0).any() or (df["price"] < 0).any():
         raise ValueError("Both 'km' and 'price' must have non-negative values.")
 
-    # Step 7: Check for unrealistic values in 'price' and 'km'
-    if (df["price"] > 1e7).any():
-        raise ValueError("Detected unrealistic values in the 'price' column. Please check your data.")
-    if (df["km"] > 1e6).any():
-        raise ValueError("Detected unrealistic values in the 'km' column. Please check your data.")
+    # # Step 7: Check for unrealistic values in 'price' and 'km'
+    # if (df["price"] > 1e7).any(): #10 million
+    #     raise ValueError("Detected unrealistic values in the 'price' column. Please check your data.")
+    # if (df["km"] > 1e6).any(): #1 million
+    #     raise ValueError("Detected unrealistic values in the 'km' column. Please check your data.")
+
+    # Additional verification using the find_outliers function
+    if find_outliers(df):
+        raise ValueError("Detected outliers in the 'price' column. Please check your data.")
 
     # Step 8: Convert valid 'km' and 'price' data to lists for further processing
     km = df["km"].to_list()
