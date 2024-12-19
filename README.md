@@ -9,14 +9,14 @@
 - [Goal of the Project](#goal-of-the-project)
 - [Simplified Analogy to Understand the Training Model](#simplified-analogy-to-understand-the-training-model)
 - [Basic Concepts](#basic-concepts)
-  - [Linear Function](#linear-function)
+  - [linear function](#linear-funtion)
   - [Data Normalization](#data-normalization)
   - [Gradient Descent Algorithm](#gradient-descent-algorithm)
-  - [Calculating Predictions and Errors](#calculating-predictions-and-errors)
-  - [Parameter Update Step](#parameter-update-step)
-  - [Cost Calculation](#cost-calculation)
-  - [Convergence Check](#convergence-check)
-  - [Final Result](#final-result)
+    - [Calculating Predictions and Errors](#calculating-predictions-and-errors)
+    - [Parameter Update Step](#parameter-update-step)
+    - [Cost Calculation](#cost-calculation)
+    - [Convergence Check](#convergence-check)
+    - [Final Result](#final-result)
 - [Steps](#steps)
 - [Project Structure](#project-structure)
 - [Setup Instructions](#setup-instructions)
@@ -152,7 +152,7 @@ $$
 
 ---
 
-### Calculating Predictions and Errors
+#### Calculating Predictions and Errors
 
 **Purpose**:
 - Focuses on calculating the gradient (the slope of the cost function) to update $\theta_0$ and $\theta_1$ during each iteration of gradient descent.
@@ -211,7 +211,7 @@ $$
   
 ---
 
-### Parameter Update Step
+#### Parameter Update Step
 **Purpose**:
 Gradient descent adjusts $\theta_0$ and  $\theta_1$  step by step to reduce the error between predicted  $\hat{y}$  and actual  $y$  values. It uses a small learning step based on the data to find the best fit line.
 
@@ -234,7 +234,7 @@ theta1 -= (learning_rate / m) * tmp_theta1
 
 ---
 
-### Cost Calculation
+#### Cost Calculation
 
 **Purpose**:
 - `compute_cost`: Evaluates how well the current model (with specific theta0 and theta1) fits the data, providing a numerical measure of error (cost).
@@ -251,7 +251,7 @@ $$
 - **In code:** `compute_cost` calculates $\frac{1}{2m}\sum ( \hat{y}_i - y_i )^2$.
 
 ---
-### Convergence Check
+#### Convergence Check
 
 - Convergence means the parameters no longer significantly reduce the cost:
 - **Goal**: The goal of checking for convergence is to stop the gradient descent when further iterations do not significantly improve accuracy, saving computational resources and time.
@@ -285,7 +285,7 @@ previous_cost = cost
 
 ---
 
-### Final Result
+#### Final Result
 
 * **Concept:** After enough iterations, the line is as close as it can get to the best fit. Return the final slope and intercept ($\theta_1$ and $\theta_0$).
 * **In Code:** Return the final parameters.
@@ -388,11 +388,11 @@ poetry run pytest tests
   - [Fonction linéaire](#fonction-linéaire)
   - [Normalisation des données](#normalisation-des-données)
   - [Algorithme de descente de gradient](#algorithme-de-descente-de-gradient)
-  - [Calcul des prédictions et des erreurs](#calcul-des-prédictions-et-des-erreurs)
-  - [Mise à jour des paramètres](#mise-à-jour-des-paramètres)
-  - [Calcul du coût](#calcul-du-coût)
-  - [Vérification de la convergence](#vérification-de-la-convergence)
-  - [Résultat final](#résultat-final)
+    - [Calcul des prédictions et des erreurs](#calcul-des-prédictions-et-des-erreurs)
+    - [Mise à jour des paramètres](#mise-à-jour-des-paramètres)
+    - [Calcul du coût](#calcul-du-coût)
+    - [Vérification de la convergence](#vérification-de-la-convergence)
+    - [Résultat final](#résultat-final)
 - [Étapes](#étapes)
 - [Structure du projet](#structure-du-projet)
 - [Instructions de configuration](#instructions-de-configuration)
@@ -518,7 +518,7 @@ $$
 
 ---
 
-### Calcul des prédictions et des erreurs
+#### Calcul des prédictions et des erreurs
 
 **Objectif** :
 - Se concentre sur le calcul du gradient (la pente de la fonction de coût) pour mettre à jour $\theta_0$ et $\theta_1$ à chaque itération de la descente de gradient.
@@ -573,7 +573,7 @@ $$
   
 ---
 
-### Mise à jour des paramètres
+#### Mise à jour des paramètres
 **Objectif** :
 La descente de gradient ajuste $\theta_0$ et $\theta_1$ pas à pas pour réduire l'erreur entre les valeurs prédites $\hat{y}$ et les valeurs réelles $y$. Elle utilise un petit pas d'apprentissage basé sur les données pour trouver la meilleure ligne d'ajustement.
 
@@ -596,7 +596,7 @@ theta1 -= (learning_rate / m) * tmp_theta1
 
 ---
 
-### Calcul du coût
+#### Calcul du coût
 
 **Objectif** :
 - `compute_cost` évalue dans quelle mesure le modèle actuel (avec des $θ_0$ et $θ_1$ spécifiques) correspond aux données, en fournissant une mesure numérique de l'erreur (coût).
@@ -611,7 +611,7 @@ $$
 - **Dans le code** : `compute_cost` calcule $\frac{1}{2m}\sum ( \hat{y}_i - y_i )^2$.
 
 ---
-### Vérification de la convergence
+#### Vérification de la convergence
 
 - La convergence signifie que les paramètres ne réduisent plus significativement le coût :
 - **Objectif** : L'objectif de la vérification de la convergence est d'arrêter la descente de gradient lorsque d'autres itérations n'améliorent plus significativement la précision, ce qui permet d'économiser des ressources et du temps.
@@ -645,7 +645,7 @@ previous_cost = cost
 
 ---
 
-### Résultat final
+#### Résultat final
 
 * **Concept** : Après un nombre suffisant d'itérations, la ligne est aussi proche que possible du meilleur ajustement. Retournez la pente et l'ordonnée à l'origine finales ($\theta_1$ et $\theta_0$
 
