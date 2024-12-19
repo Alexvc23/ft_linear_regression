@@ -472,21 +472,29 @@ $$
 **Revenir à l'échelle originale** :
 
 - **Pente (sortie - inclinaison)** :
+
+
 $$
 \text{pente} = \theta_1 \cdot \frac{\sigma_y}{\sigma_x}
 $$
 
 - **Ordonnée à l'origine (entrée - départ de la ligne)** :
+
+
 $$
 \text{intercept} = \mu_y - \text{pente} \cdot \mu_x
 $$
 
 **Ligne de régression finale** :
+
+
 $$
 \hat{y} = \text{intercept} + \text{pente} \cdot x
 $$
 
 **Formule complète** :
+
+
 $$
 \hat{y} = (\theta_0 \cdot \sigma_y + \mu_y) + (\theta_1 \cdot \frac{\sigma_y}{\sigma_x}) \cdot (x - \mu_x)
 $$
@@ -525,10 +533,14 @@ $$
 
 **Concept mathématique** :
 - Prédiction pour chaque point de données $(x_i, y_i)$ :
+
+
 $$
   \hat{y}_i = \theta_0 + \theta_1 x_i
 $$
 - Erreur pour chaque point de données :
+
+
 $$
   e_i = \hat{y}_i - y_i
 $$
@@ -603,6 +615,8 @@ theta1 -= (learning_rate / m) * tmp_theta1
 
 **Concept mathématique** :
 - Le coût (erreur quadratique moyenne) :
+
+
 $$
   J(\theta_0, \theta_1) = \frac{1}{2m}\sum_{i=1}^{m}(\hat{y}_i - y_i)^2
 $$
