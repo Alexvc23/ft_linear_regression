@@ -182,24 +182,31 @@ for i in range(m):
 
 **Parallel Explanation**:
 
-- **In code:** `predicted = theta0 + theta1 * x[i]` mirrors:
+- **Calculate the <span style="color:lightblue">**prediction**</span></bold> for all the data points using the input data points
+- **In code:** `predicted = theta0 + theta1 * x[i]`
+- **mirrors**:
 
 $$
 \hat{y}_i = \theta_0 + \theta_1 x_i
 $$
 
-- **In code:** `error = predicted - y[i]` matches:
+- Calcule the <span style="color:red">**error**</span> for all the data points using the output data points
+  - **In code:** `error = predicted - y[i]` 
+  - **Matches**:
 
 
 $$
-\frac{1}{m}\sum_{i=1}^{m} (\hat{y}_i - y_i)
+\text{Error}=\frac{1}{m}\sum_{i=1}^{m} (\hat{y}_i - y_i)
 $$
 
-- **In code:** Accumulating `tmp_theta0 += error` and `tmp_theta1 += error * x[i]` corresponds to summing up all across data points:
-
+- **In code:** Accumulating `tmp_theta0 += error` and `tmp_theta1 += error * x[i]` corresponds to calculating all the errors for $\theta_0$ and $\theta_1$ 
 
 $$
-\frac{1}{m}\sum_{i=1}^{m} (\hat{y}_i - y_i) x_i
+ \text{Erreur}\theta_0 =Error \;\;----> \text{Erreur}\theta_0=\frac{1}{m}\sum_{i=1}^{m} (\hat{y}_i - y_i)
+$$
+
+$$
+\text{Erreur}\theta_1 = (Error)x_i\;\;---->\;\;\text{Erreur}\theta_1 =\frac{1}{m}\sum_{i=1}^{m} (\hat{y}_i - y_i) x_i
 $$
   
 ---
