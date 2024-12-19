@@ -100,21 +100,27 @@ $$
 **Reverting to Original Scale**:
 
 - **Slope (output - steepness)**:
+
+
 $$
 \text{slope} = \theta_1 \cdot \frac{\sigma_y}{\sigma_x}
 $$
 
 - **Intercept (input - line start)**:
+
+
 $$
 \text{intercept} = \mu_y - \text{slope} \cdot \mu_x
 $$
 
 **Final Regression Line**:
+
 $$
 \hat{y} = \text{intercept} + \text{slope} \cdot x
 $$
 
 **Complete Formula**:
+
 $$
 \hat{y} = (\theta_0 \cdot \sigma_y + \mu_y) + (\theta_1 \cdot \frac{\sigma_y}{\sigma_x}) \cdot (x - \mu_x)
 $$
@@ -153,10 +159,14 @@ $$
 
 **Mathematical Concept**:
 - Prediction for each data point $(x_i, y_i)$:
+
+
 $$
   \hat{y}_i = \theta_0 + \theta_1 x_i
 $$
 - Error for each data point:
+
+
 $$
   e_i = \hat{y}_i - y_i
 $$
@@ -171,14 +181,27 @@ for i in range(m):
 ```
 
 **Parallel Explanation**:
-- **In code:** `predicted = theta0 + theta1 * x[i]` mirrors $\hat{y}_i = \theta_0 + \theta_1 x_i$.
-- **In code:** `error = predicted - y[i]` matches $e_i = \hat{y}_i - y_i$.
-- **In code:** Accumulating `tmp_theta0 += error` and `tmp_theta1 += error * x[i]` corresponds to summing up all $e_i$ and $e_i x_i$ across data points:
+
+- **In code:** `predicted = theta0 + theta1 * x[i]` mirrors:
 
 $$
-  \frac{\partial J}{\partial \theta_0} = \frac{1}{m} \sum_{i=1}^{m} (\hat{y}_i - y_i) \quad\text{and}\quad \frac{\partial J}{\partial \theta_1} = \frac{1}{m} \sum_{i=1}^{m} (\hat{y}_i - y_i)x_i
+\hat{y}_i = \theta_0 + \theta_1 x_i
 $$
 
+- **In code:** `error = predicted - y[i]` matches:
+
+
+$$
+\frac{1}{m}\sum_{i=1}^{m} (\hat{y}_i - y_i)
+$$
+
+- **In code:** Accumulating `tmp_theta0 += error` and `tmp_theta1 += error * x[i]` corresponds to summing up all across data points:
+
+
+$$
+\frac{1}{m}\sum_{i=1}^{m} (\hat{y}_i - y_i) x_i
+$$
+  
 ---
 
 ### Parameter Update Step
@@ -187,7 +210,7 @@ Gradient descent adjusts $\theta_0$ and  $\theta_1$  step by step to reduce the 
 
 **Mathematical Concept**:
 - Updating $\theta_0$ and $\theta_1$ using gradient descent:
-  
+
 $$
   \theta_0 := \theta_0 - \alpha \frac{1}{m}\sum_{i=1}^{m} (\hat{y}_i - y_i)
 $$
@@ -211,6 +234,8 @@ theta1 -= (learning_rate / m) * tmp_theta1
 
 **Mathematical Concept**:
 - The cost (Mean Squared Error):
+
+
 $$
   J(\theta_0, \theta_1) = \frac{1}{2m}\sum_{i=1}^{m}(\hat{y}_i - y_i)^2
 $$
