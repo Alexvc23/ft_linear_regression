@@ -202,11 +202,11 @@ $$
 - **In code:** Accumulating `tmp_theta0 += error` and `tmp_theta1 += error * x[i]` corresponds to calculating all the errors for $\theta_0$ and $\theta_1$ 
 
 $$
- \text{Erreur}\theta_0 =Error \;\;----> \text{Erreur}\theta_0=\frac{1}{m}\sum_{i=1}^{m} (\hat{y}_i - y_i)
+ \text{Erreur}\theta_0 =Error ----> \text{Erreur}\theta_0=\frac{1}{m}\sum_{i=1}^{m} (\hat{y}_i - y_i)
 $$
 
 $$
-\text{Erreur}\theta_1 = (Error)x_i\;\;---->\;\;\text{Erreur}\theta_1 =\frac{1}{m}\sum_{i=1}^{m} (\hat{y}_i - y_i) x_i
+\text{Erreur}\theta_1 = (Error)x_i---->\;\;\text{Erreur}\theta_1 =\frac{1}{m}\sum_{i=1}^{m} (\hat{y}_i - y_i) x_i
 $$
   
 ---
