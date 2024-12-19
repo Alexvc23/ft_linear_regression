@@ -206,7 +206,7 @@ $$
 $$
 
 $$
-\text{Erreur}\theta_1 = (Error)x_i---->\;\;\text{Erreur}\theta_1 =\frac{1}{m}\sum_{i=1}^{m} (\hat{y}_i - y_i) x_i
+\text{Erreur}\theta_1 = (Error)x_i---->\text{Erreur}\theta_1 =\frac{1}{m}\sum_{i=1}^{m} (\hat{y}_i - y_i) x_i
 $$
   
 ---
@@ -542,15 +542,35 @@ for i in range(m):
     tmp_theta1 += error * x[i]
 ```
 
+
 **Explication parallèle** :
-- **Dans le code** : `predicted = theta0 + theta1 * x[i]` reflète $\hat{y}_i = \theta_0 + \theta_1 x_i$.
-- **Dans le code** : `error = predicted - y[i]` correspond à $e_i = \hat{y}_i - y_i$.
-- **Dans le code** : Accumuler `tmp_theta0 += error` et `tmp_theta1 += error * x[i]` correspond à additionner tous les $e_i$ et $e_i x_i$ pour les points de données :
+
+- **Calculer la <span style="color:lightblue">**prédiction**</span></bold> pour tous les points de données en utilisant les points de données d'entrée.
+- **Dans le code :** `predicted = theta0 + theta1 * x[i]`
+- **correspond à** :
 
 $$
-  \frac{\partial J}{\partial \theta_0} = \frac{1}{m} \sum_{i=1}^{m} (\hat{y}_i - y_i) \quad\text{et}\quad \frac{\partial J}{\partial \theta_1} = \frac{1}{m} \sum_{i=1}^{m} (\hat{y}_i - y_i)x_i
+\hat{y}_i = \theta_0 + \theta_1 x_i
 $$
 
+- Calculer l'<span style="color:red">**erreur**</span> pour tous les points de données en utilisant les points de données de sortie
+  - **Dans le code :** `error = predicted - y[i]`
+  - **correspond à** :
+
+$$
+\text{Erreur}=\frac{1}{m}\sum_{i=1}^{m} (\hat{y}_i - y_i)
+$$
+
+- **Dans le code :** Accumuler `tmp_theta0 += error` et `tmp_theta1 += error * x[i]` correspond à calculer toutes les erreurs pour $\theta_0$ et $\theta_1$
+
+$$
+ \text{Erreur}\theta_0 =Erreur ----> \text{Erreur}\theta_0=\frac{1}{m}\sum_{i=1}^{m} (\hat{y}_i - y_i)
+$$
+
+$$
+\text{Erreur}\theta_1 = (Erreur)x_i---->\text{Erreur}\theta_1 =\frac{1}{m}\sum_{i=1}^{m} (\hat{y}_i - y_i) x_i
+$$
+  
 ---
 
 ### Mise à jour des paramètres
